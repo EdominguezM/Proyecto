@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p class="time"><%= distance_of_time_in_words(Time.now - @tweet.created_at)%></p>
+
+<p>
+  <strong>Autor:</strong>
+  <%= @tweet.user.name %><hr>
+  <img src=<%= @tweet.user.image_url%> class='img-thumbnail'>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @tweet.content %>
+</p>
+
+ <% @tweet.likes.each do |tweet| %> 
+   
+      <img src="<%= tweet.user.image_url%>" class='img-thumbnail-3'>
+  <% end%>
+<hr>
+
+<% pre_like = @tweet.likes.find { |like| like.user_id == current_user.id} %>
+<% if pre_like%>
+  <%= button_to 'No me gusta', tweet_like_path(@tweet, pre_like), method: :delete  %>
+<%else%>
+  <%= button_to 'Me gusta', tweet_likes_path(@tweet), method: :post  %>
+<% end%>
+<p><%= @tweet.likes.count%><%= (@tweet.likes.count) == 1 ? ' Like' : ' Likes'%></p>
+
+
+<% if @tweet.user_id == current_user.id%>
+  <%= link_to 'Editar', edit_tweet_path(@tweet) %> | 
+<% end%>
+
+<%= link_to 'Volver', tweets_path %>
