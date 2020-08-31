@@ -15,21 +15,21 @@
   <%end%>  
 <h1>Tweets</h1><hr>
 <div clas="row-6">
-  <% @tweets.each_with_index do |tweet, index| %> 
-    
+
+
+  <% @tweets.each_with_index do |tweet, index| %>   
     <div class="card" style="width: 18rem;">
       <img src="<%= tweet.user.image_url%>" class=' card-img-top rounded-circle img-thumbnail'>
       <div class="card-body">
         <h5 class="card-title">Tweet <%= index + 1 %></h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
         <h4 class="card-text mb-2"><%= tweet.content %></h4>
-        <p class="card-text text-muted"><%= tweet.likes.count%><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
-        <p class="card-text text-muted"><%= tweet.retweets.count%><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
+        <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
+        <p class="card-text text-muted"><%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
          <% if user_signed_in? %>
           <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn.primary"  %><br>
         <%end%>
        <a><%= link_to 'Mostrar', tweet %></a>
-        <!-- <a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
-        <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
+      
       </div>
     </div>
   <% end%>
