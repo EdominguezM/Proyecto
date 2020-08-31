@@ -28,8 +28,9 @@
         <p class="card-text text-muted"><%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
          <% if user_signed_in? %>
           <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn.primary"  %><br>
+          <a><%= link_to 'Mostrar', tweet %></a>
         <%end%>
-       <a><%= link_to 'Mostrar', tweet %></a>
+     
         <!-- <a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
         <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
       </div>
