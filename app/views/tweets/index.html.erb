@@ -15,11 +15,11 @@
 <%end%>
 
 <h1>Tweets</h1><hr>
-<div clas="row-6">
+<div clas="row-12">
 
 
 <% @tweets.each_with_index do |tweet, index| %>
-    <div class="card" style="width: 18rem;">
+  <div class="" style="width: 35rem;">  
       <img src="<%= tweet.user.image_url%>" class=' card-img-top rounded-circle img-thumbnail'>
       <div class="card-body">
         <h5 class="card-title">Tweet <%= index + 1 %></h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
@@ -33,7 +33,7 @@
         <!-- <a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
         <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
       </div>
-    </div>
+  </div>
 <% end%>
 
  
