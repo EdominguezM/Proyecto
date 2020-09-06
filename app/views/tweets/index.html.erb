@@ -33,9 +33,8 @@
   <div clas="row-12 text-center container">
     <% @tweets.each_with_index do |tweet, index| %>
       <p>Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
-      <div class="row-12" style="width: 45rem;">  
-        <img src="<%= tweet.image_avatar%>" class=' card-img-top rounded-circle img-thumbnail'>
-      
+      <div class="row-12" style="width: 45rem;">
+      <%= image_tag "#{tweet.image_avatar}", style: 'height:85px;width:90px'%>     
           <div class="card-body "style="width: 105rem;">
             <h5 class="card-title">Tweet <%= index + 1 %> </h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
             <h4 class="card-text mb-2"><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_search_path(a)) : a }," ".html_safe) %></h4>
