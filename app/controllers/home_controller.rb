@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @users = User.all.page(params[:page])
+    #@q = Tweet.last_tweets.page(params[:page]).ransack(params[:q])  
+    #@tweets = @q.result(distinct: true)
   end
 end

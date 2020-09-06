@@ -1,35 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<p class="time"><%= distance_of_time_in_words(Time.now - @tweet.created_at)%></p>
+<p class="time">Created <%= distance_of_time_in_words(Time.now - @tweet.created_at)%> ago</p>
+<%if @tweet.user_id == current_user.id%>
+<%else%>
+  <% if @pre_follow%>
+    <%= button_to 'siguiendo', create_path(@tweet.user_id, current_user.id), method: :delete , class:"btn btn-success" %><hr>
+  <%else%>
+    <%= button_to 'seguir', destroy_path(@tweet.user_id, current_user.id), method: :post , class:"btn btn-info" %><hr>
+  <% end%>
+<% end%>
+
+<div>
+  <strong>Seguidores:</strong>
+  <%= @tweet.user.followings.count %>
+  <strong>siguiendo:</strong>
+  <%= @tweet.user.followers.count %><br>
+  <strong>Nombre:</strong>
+  <%= @tweet.user.name %><br>
+  <%= image_tag "#{@tweet.image_avatar}", style: 'height:80px;width:80px'%>
+</div>
 
 <p>
-  <strong>Autor:</strong>
-  <%= @tweet.user.name %><hr>
-  <img src=<%= @tweet.user.image_url%> class='img-thumbnail'>
-</p>
-
-<p>
-  <strong>Content:</strong>
+  <strong>Contenido:</strong><br>
   <%= @tweet.content %>
 </p>
-
- <% @tweet.likes.each do |tweet| %> 
-   
-      <img src="<%= tweet.user.image_url%>" class='img-thumbnail-3'>
+<hr>
+  <% @tweet.likes.each do |tweet| %>    
+      <%= image_tag "#{tweet.user.image_url}", style: 'height:40px;width:40px' %>
   <% end%>
 <hr>
 
-<% pre_like = @tweet.likes.find { |like| like.user_id == current_user.id} %>
-<% if pre_like%>
-  <%= button_to 'No me gusta', tweet_like_path(@tweet, pre_like), method: :delete  %>
+<% if @pre_like%>
+  <%= button_to tweet_like_path(@tweet, @pre_like), method: :delete do %>
+    <ion-icon name="heart-dislike-sharp"></ion-icon>
+  <%end%>
 <%else%>
-  <%= button_to 'Me gusta', tweet_likes_path(@tweet), method: :post  %>
+ <%= button_to  tweet_likes_path(@tweet), method: :post do %>
+   <ion-icon name='heart-sharp'></ion-icon>
+  <%end%>
 <% end%>
 <p><%= @tweet.likes.count%><%= (@tweet.likes.count) == 1 ? ' Like' : ' Likes'%></p>
-
 
 <% if @tweet.user_id == current_user.id%>
   <%= link_to 'Editar', edit_tweet_path(@tweet) %> | 
 <% end%>
 
-<%= link_to 'Volver', tweets_path %>
+<%= link_to 'Volver', root_path, class:"btn btn-info"%>

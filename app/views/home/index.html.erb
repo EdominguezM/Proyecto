@@ -1,34 +1,55 @@
 <h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
 
-<div class="row">
-  <div class="col-xs-8 col-sm-10 col-md-10">
-    <h1>Usuarios</h1>
-  </div>
-  <div class="col-xs-4 col-sm-2 col-md-2">
-    <!--<%= link_to 'New user', new_user_registration_path, class: "btn btn-info btn-sm" %>-->
-  </div>
-</div>
+<h1 id="emi">Tweets</h1><hr>
 
-<div class="row">
-  <% @users.each do |user| %>
-    <div class="col-sm-6 col-md-4">
-    <img src="<%= user.image_url%>" class='rounded-circle img-thumbnail'><hr> 
-     <h3><%=user.name %></h3>
-      
-      <p><%= link_to 'Edit', edit_user_registration_path(user), class: "btn btn-warning" %> </p></li>
-      <p><%= link_to 'Destroy',cancel_user_registration_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
-    
-      
+<% if user_signed_in? %>
+  <%= form_with(model: @tweet, local: true) do |form| %>
+    <div class="field">
+      <h4><%= form.label :content, "Nuevo Tweet" %></h4><br>
+      <%= form.text_area :content %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Guardar", class:"btn btn-success" %>
     </div>
   <% end %>
-  <br />
+<%else%>
+    <li><%= link_to 'Register', new_user_registration_path %></li>
+    <li><%= link_to 'log in', user_session_path %></li>
+<%end%>
 
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <%= paginate @users%>
+
+ <div clas="row-12 text-center">
+    <%= search_form_for @q , url: home_index_path, method: "get" do |f|%>
+      <%= f.label :content_cont %>
+      <%= f.search_field :content_cont %>
+      <%= f.submit "Search" %>
+    <%end%>
+ </div>
+
+ 
+  <% @tweets.each_with_index do |tweet, index| %>
+    <div class="" style="width: 35rem;">  
+        <img src="<%= tweet.image_avatar%>" class=' card-img-top rounded-circle img-thumbnail'>
+        <!--<%= image_tag tweet.user.image_url, size: '70'%>-->
+        <div class="card-body">
+          <h5 class="card-title">Tweet <%= index + 1 %> <%= distance_of_time_in_words(Time.now - tweet.created_at)%></h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
+          <h4 class="card-text mb-2">Content<%= tweet.content %></h4>
+          <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
+          <p class="card-text text-muted"><%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
+          <% if user_signed_in? %>
+            <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn.primary"  %><br>
+            <a><%= link_to 'Mostrar', tweet %></a>
+          <%end%>
+    
+      
+          <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
+          <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
+        </div>
     </div>
-  </div>
+  <% end%>
 </div>
+ 
 
 
+ <%= paginate @tweets %>

@@ -7,4 +7,14 @@ class Tweet < ApplicationRecord
 
   accepts_nested_attributes_for :likes, allow_destroy: true
   accepts_nested_attributes_for :retweets, allow_destroy: true
+
+ 
+  scope :last_tweets, -> { order("created_at DESC")}
+
+  def image_avatar
+    user.image_url
+  end
+
+  scope :tweets_for_me, -> (following_users) { where user_id: following_users}
+  
 end

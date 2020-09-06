@@ -24,6 +24,11 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
+gem 'activeadmin'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'active_admin_flat_skin', '~> 0.1.2'
+gem 'font-awesome-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

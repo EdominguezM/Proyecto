@@ -1,24 +1,17 @@
-<h1>Users#my_tweets</h1>
-<p>Find me in app/views/users/my_tweets.html.erb</p>
- 
-              
-     
-   <% @tweets.each_with_index do |tweet, index| %>
-    <div class="" style="width: 35rem;">
+<% @tweets.each do |tweet| %>
+    <p>Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
+    <div class="" style="width: 35rem;">  
         <img src="<%= tweet.image_avatar%>" class=' card-img-top rounded-circle img-thumbnail'>
         <!--<%= image_tag tweet.user.image_url, size: '70'%>-->
         <div class="card-body">
-          <h5 class="card-title">Tweet <%= index + 1 %> <%= distance_of_time_in_words(Time.now - tweet.created_at)%></h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
-          <h4 class="card-text mb-2">Content<%= tweet.content %></h4>
+         <h4 class="card-text mb-2"><%= tweet.content %></h4>
           <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
           <p class="card-text text-muted"><%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
           <% if user_signed_in? %>
-            <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn.primary"  %><br>
-            <a><%= link_to 'Mostrar', tweet %></a>
-         
-            
-    
-          <%end%> 
+          <div>
+            <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %><br><%= link_to 'Mostrar', tweet , class:"btn btn-info"%>
+          </div>
+          <%end%>
           <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
           <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
         </div>

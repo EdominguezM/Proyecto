@@ -7,14 +7,10 @@ class LikesController < ApplicationController
     
   end
 
-  
-
   # GET /like/new
   def new
     @like = Like.new
   end
-
-
 
   def create
     if already_liked?
@@ -40,13 +36,13 @@ class LikesController < ApplicationController
 
   private
    # Use callbacks to share common setup or constraints between actions.
-   def find_tweet
-     @tweet = Tweet.find(params[:tweet_id])
-   end 
+  def find_tweet
+    @tweet = Tweet.find(params[:tweet_id])
+  end 
 
-   def already_liked?
+  def already_liked?
     Like.where(user_id: current_user.id, tweet_id: params[:tweet_id]).exists?
-   end
+  end
 
   # Only allow a list of trusted parameters through.
   def like_params
