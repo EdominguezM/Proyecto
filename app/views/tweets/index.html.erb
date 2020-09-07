@@ -8,7 +8,7 @@
       <div class="container">
        <div class="form-group">
           <%= f.label :content_cont, "Buscador" %>
-          <%= f.search_field :content_cont  %>
+          <%= f.search_field :content_cont , class:"form-control mr-sm-1" %>
            <%= f.submit "Buscar", class: "btn btn-primary " %>
         </div>
       </div>   
@@ -30,30 +30,29 @@
     <li><%= link_to 'log in', user_session_path %></li><hr>
 <%end%>
 
-  <div clas="row-12 text-center container">
-    <% @tweets.each_with_index do |tweet, index| %>
+ 
+<% @tweets.each do |tweet| %>
+  <div class="card row" style="width: 105rem;">
       <p>Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
-      <div class="row-12" style="width: 45rem;">
-      <%= image_tag "#{tweet.image_avatar}", style: 'height:85px;width:90px'%>     
-          <div class="card-body "style="width: 105rem;">
-            <h5 class="card-title">Tweet <%= index + 1 %> </h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
-            <h4 class="card-text mb-2"><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_search_path(a)) : a }," ".html_safe) %></h4>
-            <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
-            <p class="card-text text-muted"><%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
-            <% if user_signed_in? %>
-            <div>
-              <%= button_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %><br><%= link_to 'Mostrar', tweet , class:"btn btn-info"%>
-            </div>
-          </div>
-            <%end%>
+        <%= image_tag "#{tweet.image_avatar}", style: 'height:85px;width:90px'%>    
+        <div class="card-body " style="width: 105rem;">
+          <h5 class="card-title">Tweet de <%=tweet.user.name%> </h5>
+          <h4 class="card-text mb-2">Contenido: <%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_search_path(a)) : a }," ".html_safe) %></h4>
+          <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
+          <%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i>
+          </p>
+          <% if user_signed_in? %>
+            <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
+            <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%><hr>
+          <%end%>
+        </div>
                 <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
-            <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
-          
-      </div>
-      <hr class="green">
-    <% end%>
-    
+            <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->      
   </div>
+    <hr class="green">
+<% end%>
+    
+  
  
  <%= paginate @tweets %>
 
