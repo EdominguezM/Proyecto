@@ -12,7 +12,7 @@
 <div class="row">
   <% @users.each do |user| %>
     <div class="col-sm-6 col-md-4">
-    <img src="<%= user.image_url%>" class='rounded-circle img-thumbnail'><hr> 
+     <%= image_tag "#{@tweet.image_avatar}", style: 'height:80px;width:80px'%><hr> 
      <h3><%=user.name %></h3>
       
       <p><%= link_to 'Edit', edit_user_registration_path(user), class: "btn btn-warning" %> </p></li>

@@ -12,12 +12,12 @@
 
 <div>
   <strong>Seguidores:</strong>
-  <%= @tweet.user.followings.count %>
+    <%= @tweet.user.followings.count %>
   <strong>siguiendo:</strong>
-  <%= @tweet.user.followers.count %><br>
+    <%= @tweet.user.followers.count %><br>
   <strong>Nombre:</strong>
-  <%= @tweet.user.name %><br>
-  <%= image_tag "#{@tweet.image_avatar}", style: 'height:80px;width:80px'%>
+    <%= @tweet.user.name %><br>
+    <%= image_tag "#{@tweet.image_avatar}", style: 'height:80px;width:80px'%>
 </div>
 
 <p>
@@ -28,7 +28,7 @@
   <% @tweet.likes.each do |tweet| %>    
       <%= image_tag "#{tweet.user.image_url}", style: 'height:40px;width:40px' %>
   <% end%>
-<hr>
+
 
 <% if @pre_like%>
   <%= button_to tweet_like_path(@tweet, @pre_like), method: :delete do %>

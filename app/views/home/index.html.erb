@@ -31,7 +31,7 @@
   
   <% @tweets.each_with_index do |tweet, index| %>
     <div class="twitter:card" style="width: 35rem;">  
-        <img src="<%= tweet.image_avatar%>" class=' card-img-top rounded-circle img-thumbnail'>
+         <%= image_tag "#{tweet.image_avatar}", style: 'height:90px;width:90px'%>
         <!--<%= image_tag tweet.user.image_url, size: '70'%>-->
         <div class="twitter:creator">
           <h5 class="card-title">Tweet <%= index + 1 %> <%= distance_of_time_in_words(Time.now - tweet.created_at)%></h5> <!--el index es el digito que aumenta desde "0" por eso se suma 1-->
@@ -43,17 +43,6 @@
             <a><%= link_to 'Mostrar', tweet %></a>
           <%end%>
 
-
- <%= image_tag "#{tweet.image_avatar}", style: 'height:90px;width:90px'%>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text "><%= tweet.content %></p></a>
-    <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
-   <%= link_to 'Mostrar', tweet %>
-  </div>
-</div>
 
           <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
           <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
