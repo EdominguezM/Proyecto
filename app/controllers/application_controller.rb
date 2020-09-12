@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   end
   
   #The token authentication requirement can target specific controller actions:
-  acts_as_token_authentication_handler_for User, only: [:create, ]
+  acts_as_token_authentication_handler_for User, only: [:create ]
 
 end
