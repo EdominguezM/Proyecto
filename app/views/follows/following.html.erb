@@ -1,0 +1,29 @@
+ <% @followings.each do |tweet| %>
+
+  <div class="card text-center twitter">
+    <p class="date">Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
+    <div class="twitter-head">
+      <%= image_tag "#{tweet.image_avatar}", style: 'height:90px;width:90px', class:'picture'%>
+      <h5 class="card-title">Tweet de <%= tweet.user.name %></h5>
+    </div>
+
+    <div class="card-body twitter-creator">
+      <h4 class="card-text mb-2">Contenido:<br></h4><% tweet.content %><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_path(a)) : a }," ".html_safe) %><hr>
+    </div>
+
+    <div class="container-fluid boton">
+      <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
+          <%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i>
+      </p>
+      <% if user_signed_in? %>
+        <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
+        <%= link_to 'Mostrar', tweet , class:"btn btn-success" %><hr>
+      <%end%>
+    </div>
+        <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
+        <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->
+  </div>
+  <hr class="green">
+  
+<% end%>
+ 

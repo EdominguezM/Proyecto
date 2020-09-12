@@ -2,7 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
+.search{
+  padding-top: 11rem;
+}
 .time {
   text-align: right;
 }
@@ -17,6 +19,35 @@ ion-icon {
   font-size: 30px;
 }
 
+.green {
+  width: 100rem;
+}
+.twitter{
+  text-align: left;
+}
+.twitter-creator {
+  display: inline-block;
+  padding-top: 5rem;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 0rem; 
+}
+
+.twitter-head{
+  display: inline-block;
+  margin-right: 18%;
+  margin-left: 8rem;
+  padding-left: 0rem;
+ 
+}
+.date {
+  padding-left: 5rem;
+  margin-left: 45rem;
+}
+
+.boton {
+  text-align: center;
+}
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;

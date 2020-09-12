@@ -1,9 +1,13 @@
 class User < ApplicationRecord
+  
+  acts_as_token_authenticatable
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+      
+       
   validates :name, presence: true
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -15,5 +19,7 @@ class User < ApplicationRecord
   has_many :following_relationships, foreign_key: :follower_id, class_name: "Follow"
   has_many :followings, through: :following_relationships, source: :following, dependent: :destroy
 
+ 
+  
   
 end

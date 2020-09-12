@@ -28,6 +28,7 @@ gem 'activeadmin'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'active_admin_flat_skin', '~> 0.1.2'
 gem 'font-awesome-rails'
+gem 'simple_token_authentication', '~> 1.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

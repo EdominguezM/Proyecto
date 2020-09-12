@@ -5,7 +5,7 @@ class FollowsController < ApplicationController
   def index
     #@q = Tweet.tweets_for_me(current_user.followers).ransack(params[:q])
     if user_signed_in?
-      @q = Tweet.tweets_for_me(current_user.followers).ransack(params[:q])
+      @q = Tweet.last_tweets.tweets_for_me(current_user.followers).ransack(params[:q])
       @tweets = @q.result(distinct: true).page(params[:page])
     else
       redirect_to tweets_path
@@ -30,6 +30,12 @@ class FollowsController < ApplicationController
       @follow.destroy
     end
     redirect_to root_path
+  end
+
+  def following
+    if user_signed_in?
+      @followings = Tweet.last_tweets.tweets_of_me(current_user.followings)
+    end
   end
 
   def find_follow

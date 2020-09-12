@@ -1,19 +1,17 @@
-<h1 id="emi">Tweets</h1><hr>
-
-
-<% if user_signed_in? %>
-  <div class="row">
-  <div class="col-md-3 offset-md-2">
-    <%= search_form_for @q , url: tweets_path , method: "get"  do |f| %> 
-      <div class="container">
-       <div class="form-group">
-          <%= f.label :content_cont, "Buscador" %>
-          <%= f.search_field :content_cont , class:"form-control mr-sm-1" %>
-           <%= f.submit "Buscar", class: "btn btn-primary " %>
-        </div>
-      </div>   
-     <% end %>
-  </div>
+<h1 id="emi" class="search">Twitts</h1><hr>
+<% if user_signed_in? %>  
+  <div class="row ">
+    <div class="col-md-3 offset-md-2">
+      <%= search_form_for @q , url: tweets_path , method: "get"  do |f| %> 
+        <div class="container">
+          <div class="form-group">
+            <%= f.label :content_cont, "Buscador" %>
+            <%= f.search_field :content_cont , class:"form-control mr-sm-1" %><br>
+            <%= f.submit "Buscar", class: "btn btn-primary " %>
+          </div>
+        </div>   
+      <% end %>
+    </div>
   </div>
   <%= form_with(model: @tweet, local: true) do |form| %>
     <div class="field">
@@ -25,35 +23,39 @@
       <%= form.submit "Guardar", class:"btn btn-success" %>
     </div>
   <% end %><hr class="green">
+  
 <%else%>
     <li><%= link_to 'Register', new_user_registration_path %></li>
     <li><%= link_to 'log in', user_session_path %></li><hr>
 <%end%>
 
- 
 <% @tweets.each do |tweet| %>
-  <div class="card row" style="width: 105rem;">
-      <p>Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
-        <%= image_tag "#{tweet.image_avatar}", style: 'height:85px;width:90px'%>    
-        <div class="card-body " style="width: 105rem;">
-          <h5 class="card-title">Tweet de <%=tweet.user.name%> </h5>
-          <h4 class="card-text mb-2">Contenido: <%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_search_path(a)) : a }," ".html_safe) %></h4>
-          <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
-          <%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i>
-          </p>
-          <% if user_signed_in? %>
-            <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
-            <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%><hr>
-          <%end%>
-        </div>
-                <!--<a><%= link_to 'Edit', edit_tweet_path(tweet) %></a>
-            <a><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></a>-->      
-  </div>
+
+  <div class="card text-center twitter">
+   <p class="date">Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
+    <div class="twitter-head">
+        <%= image_tag "#{tweet.image_avatar}", style: 'height:85px;width:90px;', class:'picture'%>
+        <h5 class="card-title">Tweet de <%=tweet.user.name%> </h5>
+    </div>
+    <div class="card-body twitter-creator" >
+      <h4 class="card-text mb-2"><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, search_path(q: a)) : a }," ".html_safe) %></h4>
+    </div>
+    <div class="boton">
+       <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
+        <%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i>
+      </p>
+      <% if user_signed_in? %>
+        <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
+        <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%><hr>
+        <% if tweet.user_id == current_user.id%>
+          <%= link_to 'Eliminar', @tweet, method: :delete, data: { confirm: 'Are you sure?' },  class:'btn btn-danger' %>
+        <%end%>
+      <%end%>
+    </div>
     <hr class="green">
+  </div>
 <% end%>
-    
-  
- 
+
  <%= paginate @tweets %>
 
 

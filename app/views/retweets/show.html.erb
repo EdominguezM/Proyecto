@@ -1,12 +1,13 @@
 <%= notice %>
 
 <div class="card-desk" style="width: 100rem;">
- <p class="card-title "><img src=<%= @retweet.user.image_url%> class='img-thumbnail-2'><%= @retweet.user.name  %><h4 class="retweet">Retwitteaste</h4><hr></p>
-  
+ <div class="card-title "><img src=<%= @retweet.user.image_url%> class='img-thumbnail-2'> <%= @retweet.user.name  %><h4 class="retweet">Retwitteaste</h4><br>
+ </div> 
 
   <div class="card" style="width: 100rem;">
     <div class="card-body">
-      <h5 class="card-title"><img src=<%= @retweet.tweet.user.image_url%> class='img-thumbnail-2'><%= @retweet.tweet.user.name%></p><p class="detail"> <%= distance_of_time_in_words(Time.now - @retweet.tweet.created_at)%> <%= link_to 'detalle', @tweet, class:"btn btn-link"%> </p> 
+    <p class="detail"><br><%= distance_of_time_in_words(Time.now - @retweet.tweet.created_at)%> ago</p>
+    <h5 class="card-title"><br><img src=<%= @retweet.tweet.user.image_url%> class='img-thumbnail-2'> <%= @retweet.tweet.user.name%><br> </h5>
     
       <p class="card-text"><%= @retweet.tweet.content %></p><hr>
       
@@ -15,5 +16,5 @@
   <p class="card-text text-muted"><%= @tweet.likes.count%><%= (@tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>  <%= @tweet.retweets.count%><%= (@tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i></p>
 
 
-  <%= link_to 'Volver', tweets_path %>
+  <%= link_to 'detalle', @tweet, class:"btn btn-link"%><%= link_to 'Volver', tweets_path %>
 </div>

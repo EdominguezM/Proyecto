@@ -17,6 +17,8 @@ class LikesController < ApplicationController
       flash[:notice] = "no puedes dar mas de un Like"
     else
       @tweet.likes.create(user_id: current_user.id)
+      @tweet.likes_count += 1
+      @tweet.save
     end
     redirect_to tweet_path(@tweet)  
   end
@@ -26,6 +28,8 @@ class LikesController < ApplicationController
       flash[:notice] = "no me gusta"
     else
       @like.destroy
+      @like.tweet.likes_count -= 1
+      @like.tweet.save
     end
     redirect_to tweet_path(@tweet)
   end
@@ -35,7 +39,7 @@ class LikesController < ApplicationController
   end
 
   private
-   # Use callbacks to share common setup or constraints between actions.
+  
   def find_tweet
     @tweet = Tweet.find(params[:tweet_id])
   end 
@@ -44,8 +48,7 @@ class LikesController < ApplicationController
     Like.where(user_id: current_user.id, tweet_id: params[:tweet_id]).exists?
   end
 
-  # Only allow a list of trusted parameters through.
   def like_params
-    params.permit(:active, :user_id, :tweet_id)
+    params.permit(:active, :user_id, :tweet_id, :id)
   end
 end
