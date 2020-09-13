@@ -1,6 +1,7 @@
+ <h1>Siguiendome</h1><hr>
  <% @followings.each do |tweet| %>
 
-  <div class="card text-center twitter">
+  <div class="card text-center twitter search">
     <p class="date">Created <%= distance_of_time_in_words(Time.now - tweet.created_at)%> ago</p>
     <div class="twitter-head">
       <%= image_tag "#{tweet.image_avatar}", style: 'height:90px;width:90px', class:'picture'%>

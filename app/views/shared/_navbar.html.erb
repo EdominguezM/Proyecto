@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default col-xs-4 col-sm-12  col-md-12">
+<nav id="nav"class="navbar navbar-default col-xs-4 col-sm-12  col-md-12" >
   <div class="container-fluid">
     <div class="navbar-head">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -12,32 +12,31 @@
         <strong>All_Twitters</strong>
       </a>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+
+
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right"  ><br>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           <% if user_signed_in?%>
-              <%= image_tag "#{current_user.image_url}", style: 'height:7rem;width:7rem;', class:'picture'%>
+              <%= image_tag "#{current_user.image_url}", style: 'height:7rem;width:7rem;', class:'picture'%><br>
           <%else%>
             <ion-icon name="person-circle-sharp"></ion-icon>
           <%end%>
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu ">
-            <% if user_signed_in? %>
-              <li><%= link_to 'Siguiendo', root_path %></li>
-              <li><%= link_to 'Siguiendome', following_path %></li>
-              <li><%= link_to 'Actualizar datos', edit_user_registration_path %></li>
-              <li role="separator" class="divider"></li>
-              <li><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
-            <% else %>
-              <li><%= link_to 'Iniciar Sesión', new_user_session_path %></li>
-              <li><%= link_to 'Registrase', new_user_registration_path %></li>
-            <% end %>
-           
-          </ul>
-        </li>
-      </ul>
-    </div>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu ">
+          <% if user_signed_in? %>
+          <li><%= link_to 'Siguiendo', root_path %></li>
+          <li><%= link_to 'Siguiendome', following_path %></li>
+          <li><%= link_to 'Actualizar datos', edit_user_registration_path %></li>
+          <li role="separator" class="divider"></li>
+          <li id="sesion"><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to 'Iniciar Sesión', new_user_session_path %></li>
+            <li><%= link_to 'Registrase', new_user_registration_path %></li>
+          <% end %>
+        </ul>
+      </ul> 
+    </div> 
   </div>
 </nav>

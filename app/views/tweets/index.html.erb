@@ -5,7 +5,7 @@
       <%= search_form_for @q , url: tweets_path , method: "get"  do |f| %> 
         <div class="container">
           <div class="form-group">
-            <%= f.label :content_cont, "Buscador" %>
+            <%= f.label :content_cont, "Buscar Tweet" %>
             <%= f.search_field :content_cont , class:"form-control mr-sm-1" %><br>
             <%= f.submit "Buscar", class: "btn btn-primary " %>
           </div>
@@ -38,17 +38,19 @@
         <h5 class="card-title">Tweet de <%=tweet.user.name%> </h5>
     </div>
     <div class="card-body twitter-creator" >
-      <h4 class="card-text mb-2"><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, search_path(q: a)) : a }," ".html_safe) %></h4>
+      <h4 class="card-text m-2 contenido"><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, search_path(q: a[1..])) : a }," ".html_safe) %></h4>
+      <br>
     </div>
+    
     <div class="boton">
        <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
         <%= tweet.retweets.count %><%= (tweet.retweets.count) == 1 ? ' Retweet ' : ' Retweets '%><i class="fas fa-retweet"></i>
       </p>
       <% if user_signed_in? %>
         <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
-        <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%><hr>
+        <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%>
         <% if tweet.user_id == current_user.id%>
-          <%= link_to 'Eliminar', @tweet, method: :delete, data: { confirm: 'Are you sure?' },  class:'btn btn-danger' %>
+          <%= link_to 'Eliminar', tweet, method: :delete, data: { confirm: 'Are you sure?' },  class:'btn btn-danger' %>
         <%end%>
       <%end%>
     </div>

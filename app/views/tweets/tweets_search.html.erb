@@ -1,4 +1,4 @@
-<h3 class="search">Búsqueda Hastags</h3><br>
+<h2 class="search">Búsqueda Hastags</h2><br>
 <% @tweets.each do |tweet| %>
 
   <div class="card text-center twitter">
@@ -16,7 +16,7 @@
       </p>
       <% if user_signed_in? %>
         <%= link_to 'Retweet', tweet_retweets_path(tweet), method: :post, class:"btn btn-primary"  %>
-        <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%><hr>
+        <%= link_to 'Mostrar', tweet , class:"btn btn-info mx-4"%>
         <% if tweet.user_id == current_user.id%>
           <%= link_to 'Eliminar', @tweet, method: :delete, data: { confirm: 'Are you sure?' },  class:'btn btn-danger' %>
         <%end%>

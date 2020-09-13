@@ -66,7 +66,7 @@ class TweetsController < ApplicationController
   end
 
   def tweets_search
-    @tweets = Tweet.where("content LIKE ?", "%" + params[:q] + "%")
+    @tweets = Tweet.last_tweets.where("content LIKE ?", "%" + params[:q] + "%")
   end
 
   def api_create
@@ -83,7 +83,7 @@ class TweetsController < ApplicationController
   end
 
   def dates
-    @date =  Tweet.dates_tweets(params[:from], params[:to])
+    @date =  Tweet.dates_tweets(params[:from], params[:to ])
    
     respond_to do |format|
       if @date != []

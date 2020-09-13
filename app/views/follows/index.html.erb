@@ -3,7 +3,7 @@
   <%= search_form_for @q, url: root_path, method: "get" do |f| %>
      <div class="container search">
        <div class="form-group">
-          <%= f.label :content_cont, "Buscador" %>
+          <%= f.label :content_cont, "Buscar Tweet" %>
           <%= f.search_field :content_cont, class:"form-control mr-sm-1" %><br>
            <%= f.submit "Buscar", class: "btn btn-primary " %>
         </div>
@@ -18,7 +18,7 @@
         <h5 class="card-title">Tweet de <%= tweet.user.name %></h5>
       </div>
       <div class="card-body twitter-creator">
-        <h4 class="card-text mb-2">Contenido:<br></h4><% tweet.content %><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, tweets_path(a)) : a }," ".html_safe) %><hr>
+        <h4 class="card-text mb-2 contenido">Contenido:<br></h4><% tweet.content %><%= safe_join(tweet.content.split(" ").map {|a| a[0] == "#" ?  link_to(a, search_path(q: a[1..])) : a }," ".html_safe) %><hr>
       </div>
       <div class="container-fluid boton">
         <p class="card-text text-muted"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? ' Like ' : ' Likes '%><i class="fas fa-heart"></i>
